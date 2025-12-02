@@ -1,0 +1,76 @@
+package Sel;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class Sqltask {
+
+	public static void main(String[] args) throws Exception {
+		
+		String db ="jdbc:mysql://localhost:3306/employee";
+		Connection con = DriverManager.getConnection(db,"root","test");
+		Statement sta = con.createStatement();
+		sta.execute("INSERT INTO empl (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES (8369, 'SMITH', 'CLERK', 8902, '1990-12-18', 800.00, NULL, 20)");
+		sta.execute("INSERT INTO empl (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES (8499, 'ANYA', 'SALESMAN', 8698, '1991-02-20', 1600.00, 300.00, 30)");
+		sta.execute("INSERT INTO empl (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES (8521, 'SETH', 'SALESMAN', 8698, '1991-02-22', 1250.00, 500.00, 30)");
+		sta.execute("INSERT INTO empl (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES (8566, 'MAHADEVAN', 'MANAGER', 8839, '1991-04-02', 2985.00, NULL, 20)");
+		sta.execute("INSERT INTO empl (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES (8654, 'MOMIN', 'SALESMAN', 8698, '1991-09-28', 1250.00, 1400.00, 30)");
+		sta.execute("INSERT INTO empl (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES (8698, 'BINA', 'MANAGER', 8839, '1991-05-01', 2850.00, NULL, 30)");
+		sta.execute("INSERT INTO empl (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES (8882, 'SHIVANSH', 'MANAGER', 8839, '1991-06-09', 2450.00, NULL, 10)");
+		sta.execute("INSERT INTO empl (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES (8888, 'SCOTT', 'ANALYST', 8566, '1992-12-09', 3000.00, NULL, 20)");
+		sta.execute("INSERT INTO empl (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES (8839, 'AMIR', 'PRESIDENT', NULL, '1991-11-18', 5000.00, NULL, 10)");
+		sta.execute("INSERT INTO empl (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES (8844, 'KULDEEP', 'SALESMAN', 8698, '1991-09-06', 1500.00, 0.00, 30)");
+		
+
+		ResultSet rs = sta.executeQuery("Select ename, sal from empl where sal>=2200");	
+		while(rs.next()) {
+			System.out.println(rs.getString("ename"));
+			System.out.println(rs.getString("sal"));
+		}
+		
+		System.out.println("******************************************");
+		
+		ResultSet rs1 = sta.executeQuery("Select empno, ename, sal, comm from empl where comm is NULL");	
+		while(rs1.next()) {
+			System.out.println(rs1.getString("empno"));
+			System.out.println(rs1.getString("ename"));
+			System.out.println(rs1.getString("sal"));
+			System.out.println(rs1.getString("comm"));
+		}
+		System.out.println("******************************************");
+		
+		ResultSet rs2 = sta.executeQuery("Select ename, sal from empl where sal not between 2500 and 4000");	
+		while(rs2.next()) {
+			System.out.println(rs2.getString("ename"));
+			System.out.println(rs2.getString("sal"));
+		}
+		
+		System.out.println("******************************************");
+		
+		ResultSet rs3 = sta.executeQuery("select ename, job, sal from empl where mgr is NULL");
+		while(rs3.next()) {
+			System.out.println(rs3.getString("ename"));
+			System.out.println(rs3.getString("job"));
+			System.out.println(rs3.getString("sal"));
+		}
+		
+		System.out.println("******************************************");
+		
+		ResultSet rs4 = sta.executeQuery("select ename from empl where ename like '__a%' ");
+		while(rs4.next()) {
+			System.out.println(rs4.getString("ename"));
+		}
+		
+		System.out.println("******************************************");
+		ResultSet rs5 = sta.executeQuery("select ename from empl where ename like '%t'");
+		while(rs5.next()) {
+			System.out.println(rs5.getString("ename"));
+		}
+		
+		
+		
+	}
+
+}
